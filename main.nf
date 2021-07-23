@@ -1995,6 +1995,7 @@ process FREEBAYES_VARIANTS {
         -f $fasta \\
         ${bam[0]} \\
         | vcfallelicprimitives -k -g \\
+        | vcfnomultiallelic \\
         | bgzip -c > ${sample}.vcf.gz
     tabix -p vcf -f ${sample}.vcf.gz
     bcftools stats --af-tag AF ${sample}.vcf.gz > ${sample}.bcftools_stats.txt
