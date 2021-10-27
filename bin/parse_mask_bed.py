@@ -61,7 +61,6 @@ def parse_mask_bed(BedIn,BedOut,indels_pos_len,snp):
 			init_pos=line[1]
 			end_pos=line[2]
 			coverage=line[3]
-			range_length=int(end_pos)-int(init_pos)
 			oline=ref_genome+'\t'+init_pos+'\t'+end_pos+'\t'+coverage
 			if len(snp) > 0: 
 				output = []
@@ -111,26 +110,30 @@ def parse_mask_bed(BedIn,BedOut,indels_pos_len,snp):
 						printing = 1
 						position_end = int(position)+int(indels_pos_len[position])
 						if int(init_pos) < int(position) and int(end_pos) < int(position): ### outside of the indel left side
-	#						print("condition 1\t" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 1\t" + position + '\t' + str(position_end) + '\t' + oline)
 							pass
 						elif int(init_pos) < int(position) and int(end_pos) >= int(position) and int(end_pos) <= int(position_end): ### partial covering of the beginning of the gap
-	#						print("condition 2" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 2\t" + position + '\t' + str(position_end) + '\t' + oline)
 							new_end = int(position) - 1 
-							oline=ref_genome+'\t'+init_pos+'\t'+str(new_end)+'\t'+coverage
+							if new_end == int(init_pos):
+								printing = 0
+								break
+							else:
+								oline=ref_genome+'\t'+init_pos+'\t'+str(new_end)+'\t'+coverage
 						elif int(init_pos) >= int(position) and int(end_pos) <= int(position_end): ## it is in the gap don't mask anything
-	#						print("condition 3" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 3" + position + '\t' + str(position_end) + '\t' + oline)
 							printing = 0
 							break
 						elif int(init_pos) >= int(position) and int(init_pos) <= int(position_end) and int(end_pos) > int(position_end): ## it covers the gap at the end of it partially
-	#						print("condition 4" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 4\t" + position + '\t' + str(position_end) +'\t' + oline)
 							new_start= int(position_end) + 1 
 							oline=ref_genome+'\t'+str(new_start)+'\t'+end_pos+'\t'+coverage
 						elif int(init_pos) >= int(position_end): ### the low coverage area is after the indel ignore it
-	#						print("condition 5" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 5\t" + position + '\t' + str(position_end) +'\t' + oline)
 							pass
 						elif int(init_pos) < int(position) and int(end_pos) > int(position_end): ### a super rare situation where the gap is completely covered by a low coverage which extends before and after the gap. I think this would be impossible in real life
 							### you need to split the gap
-	#						print("condition 6" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 6\t" + position + '\t' + str(position_end) +'\t' + oline)
 							new_start2= int(position_end) + 1
 							new_end1 = int(position) - 1 
 							oline=ref_genome+'\t'+ init_pos +'\t'+str(new_end1)+'\t'+coverage + ref_genome+'\t'+str(new_start2)+'\t'+end_pos+'\t'+coverage
@@ -154,26 +157,30 @@ def parse_mask_bed(BedIn,BedOut,indels_pos_len,snp):
 						printing = 1
 						position_end = int(position)+int(indels_pos_len[position])
 						if int(init_pos) < int(position) and int(end_pos) < int(position): ### outside of the indel left side
-	#						print("condition 1\t" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 1\t" + position + '\t' + str(position_end) + '\t' + oline)
 							pass
 						elif int(init_pos) < int(position) and int(end_pos) >= int(position) and int(end_pos) <= int(position_end): ### partial covering of the beginning of the gap
-	#						print("condition 2" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 2\t" + position + '\t' + str(position_end) + '\t' + oline)
 							new_end = int(position) - 1 
-							oline=ref_genome+'\t'+init_pos+'\t'+str(new_end)+'\t'+coverage
+							if new_end == int(init_pos):
+								printing = 0
+								break
+							else:
+								oline=ref_genome+'\t'+init_pos+'\t'+str(new_end)+'\t'+coverage
 						elif int(init_pos) >= int(position) and int(end_pos) <= int(position_end): ## it is in the gap don't mask anything
-	#						print("condition 3" + position + '\t' + str(position_end) + '\t' + oline)
+#							print("condition 3\t" + position + '\t' + str(position_end) + '\t' + oline)
 							printing = 0
 							break
 						elif int(init_pos) >= int(position) and int(init_pos) <= int(position_end) and int(end_pos) > int(position_end): ## it covers the gap at the end of it partially
-	#						print("condition 4" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 4\t" + position + '\t' + str(position_end) +'\t' + oline)
 							new_start= int(position_end) + 1 
 							oline=ref_genome+'\t'+str(new_start)+'\t'+end_pos+'\t'+coverage
 						elif int(init_pos) >= int(position_end): ### the low coverage area is after the indel ignore it
-	#						print("condition 5" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 5\t" + position + '\t' + str(position_end) +'\t' + oline)
 							pass
 						elif int(init_pos) < int(position) and int(end_pos) > int(position_end): ### a super rare situation where the gap is completely covered by a low coverage which extends before and after the gap. I think this would be impossible in real life
 							### you need to split the gap
-	#						print("condition 6" + position + '\t' + str(position_end) +'\t' + oline)
+#							print("condition 6\t" + position + '\t' + str(position_end) +'\t' + oline)
 							new_start2= int(position_end) + 1
 							new_end1 = int(position) - 1 
 							oline=ref_genome+'\t'+ init_pos +'\t'+str(new_end1)+'\t'+coverage + ref_genome+'\t'+str(new_start2)+'\t'+end_pos+'\t'+coverage

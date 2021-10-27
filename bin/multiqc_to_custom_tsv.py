@@ -113,7 +113,7 @@ def main(args=None):
     VariantFileFieldList = [
         ('multiqc_fastp.yaml',                                     [('# Input reads', ['before_filtering','total_reads']),
                                                                     ('# Trimmed reads (fastp)', ['after_filtering','total_reads'])]),
-        ('multiqc_samtools_flagstat_samtools_bowtie2.yaml',        [('% Mapped reads (viral)', ['mapped_passed_pct'])]),
+        ('multiqc_samtools_stats_BWA.yaml',        [('% Mapped reads (viral)', ['percentage_of_properly_paired_reads_(%)'])]),
         ('multiqc_samtools_flagstat_samtools_ivar.yaml',           [('# Trimmed reads (iVar)', ['flagstat_total'])]),
         ('multiqc_samtools_flagstat_samtools_markduplicates.yaml', [('# Duplicate reads', ['duplicates_passed']),
                                                                     ('# Reads after MarkDuplicates', ['flagstat_total'])]),

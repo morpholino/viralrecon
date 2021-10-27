@@ -9,7 +9,7 @@ regexes = {
     'parallel-fastq-dump': ['v_parallel_fastq_dump.txt', r"parallel-fastq-dump\s:\s(\S+)"],
     'FastQC': ['v_fastqc.txt', r"FastQC\sv(\S+)"],
     'fastp': ['v_fastp.txt', r"fastp\s(\S+)"],
-    'Bowtie 2': ['v_bowtie2.txt', r"bowtie2-align-s\sversion\s(\S+)"],
+    'Bwa': ['v_bwa.txt', r"Bwa\sversion\s(\S+)"],
     'Samtools': ['v_samtools.txt', r"samtools\s(\S+)"],
     'BEDTools': ['v_bedtools.txt', r"bedtools\sv(\S+)"],
     'Mosdepth': ['v_mosdepth.txt', r"mosdepth\s(\S+)"],
